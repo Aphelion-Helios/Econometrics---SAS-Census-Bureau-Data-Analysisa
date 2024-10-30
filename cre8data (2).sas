@@ -22,9 +22,7 @@
 %let path=/home/u63591817/Census Data Analysis;
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- WARNING: DO NOT ALTER CODE BELOW THIS LINE UNLESS DIRECTED 
-          TO DO SO BY YOUR INSTRUCTOR.
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
 
 libname temp "&path";
 
