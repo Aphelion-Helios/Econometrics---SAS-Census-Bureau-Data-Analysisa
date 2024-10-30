@@ -1,0 +1,663 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ NOTE: ODS statements in the SAS Studio environment may disable some output features.
+ 69         
+ 70         /*************************************************************
+ 71          Note: This program is designed to run in SAS Studio.
+ 72         
+ 73          STEP 1: Right-click on the Census Data Analysis folder in the
+ 74                  Files and Folders section and select Properties.
+ 75         
+ 76          STEP 2: Highlight the path provided in the Location field and
+ 77                  press Ctrl+C to copy the text. Click Close.
+ 78         
+ 79          STEP 3: In the %LET statement below, highlight insertpath.
+ 80                  Press Ctrl+V to paste the path.
+ 81         
+ 82          STEP 4: Click Run or press F3.
+ 83         
+ 84          STEP 5: Confirm that 9 tables are listed in the generated
+ 85           report. In addition to the 9 tables, verify that 3
+ 86           Excel files are listed under the Census Data Analysis
+ 87           folder.
+ 88         
+ 89         *************************************************************/
+ 90         
+ 91         %let path=/home/u63591817/Census Data Analysis;
+ 92         
+ 93         /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 94          WARNING: DO NOT ALTER CODE BELOW THIS LINE UNLESS DIRECTED
+ 95                   TO DO SO BY YOUR INSTRUCTOR.
+ 96         +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+ 97         
+ 98         libname temp "&path";
+ NOTE: Libref TEMP was successfully assigned as follows: 
+       Engine:        V9 
+       Physical Name: /home/u63591817/Census Data Analysis
+ 99         
+ 100        options validvarname=any;
+ 101        
+ 102        /* Educational Attainment_s.xlsx */
+ 103        data temp.EDUCATIONAL_ATTAINMENT_S;
+ 104          infile datalines dsd truncover;
+ 105          input Educational_Attainment:$43. Mountain:COMMA15. "West South Central"n:COMMA15. "East North Central"n:COMMA15. "West
+ 105      !  North Central"n:COMMA15. "Middle Atlantic"n:COMMA15. "New England"n:COMMA15. "South Atlantic"n:COMMA15. "East South
+ 105      ! Central"n:COMMA15. Pacific:COMMA15.;
+ 106          format Educational_Attainment:$43. Mountain:COMMA15. "West South Central"n:COMMA15. "East North Central"n:COMMA15.
+ 106      ! "West North Central"n:COMMA15. "Middle Atlantic"n:COMMA15. "New England"n:COMMA15. "South Atlantic"n:COMMA15. "East South
+ 106      !  Central"n:COMMA15. Pacific:COMMA15.;
+ 107          label Educational_Attainment="Educational_Attainment" Mountain="Mountain" "West South Central"n="West South Central"
+ 107      ! "East North Central"n="East North Central" "West North Central"n="West North Central" "Middle Atlantic"n="Middle
+ 107      ! Atlantic" "New England"n="New England" "South Atlantic"n="South Atlantic" "East South Central"n="East South Central"
+ 107      ! Pacific="Pacific";
+ 108        datalines4;
+ 
+ NOTE: The data set TEMP.EDUCATIONAL_ATTAINMENT_S has 5 observations and 10 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.01 seconds
+       memory              787.65k
+       OS Memory           56044.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1077  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     153
+       Page Swaps                        0
+       Voluntary Context Switches        32
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 114        ;;;;
+ 115        
+ 116        proc export data=temp.Educational_Attainment_s outfile="&path/Educational Attainment_s.xlsx" dbms=xlsx replace;
+ 117        run;
+ 
+ NOTE: The export data set has 5 observations and 10 variables.
+ NOTE: "/home/u63591817/Census Data Analysis/Educational Attainment_s.xlsx" file was successfully created.
+ NOTE: PROCEDURE EXPORT used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.01 seconds
+       system cpu time     0.00 seconds
+       memory              3415.84k
+       OS Memory           59508.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1078  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     801
+       Page Swaps                        0
+       Voluntary Context Switches        33
+       Involuntary Context Switches      0
+       Block Input Operations            304
+       Block Output Operations           16
+       
+ 
+ 118        
+ 119        proc delete data=temp.Educational_Attainment_s;
+ 120        run;
+ 
+ NOTE: Deleting TEMP.EDUCATIONAL_ATTAINMENT_S (memtype=DATA).
+ NOTE: PROCEDURE DELETE used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              292.78k
+       OS Memory           57064.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1079  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     15
+       Page Swaps                        0
+       Voluntary Context Switches        28
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 121        
+ 122        
+ 123        /* Median Home Value_s.xlsx */
+ 124        libname temp2 xlsx "&path/Median Home Value_s.xlsx";
+ ERROR: Unable to clear or re-assign the library TEMP2 because it is still in use.
+ ERROR: Error in the LIBNAME statement.
+ 125        data temp.MEDIAN_HOME_VALUE_S;
+ 126          infile datalines dsd truncover;
+ 127          input GEO_ID:$11. State:$20. MedianHome:NLMNY15. MedianHomeMOE:NLMNY15.;
+ 128          format MedianHome nlmny15. MedianHomeMOE nlmny15.;
+ 129          label GEO_ID="GEO_ID" State="State" MedianHome="MedianHome" MedianHomeMOE="MedianHomeMOE";
+ 130        datalines4;
+ 
+ NOTE: The data set TEMP.MEDIAN_HOME_VALUE_S has 52 observations and 4 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              743.12k
+       OS Memory           57324.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1080  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     86
+       Page Swaps                        0
+       Voluntary Context Switches        29
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 183        ;;;;
+ 184        
+ 185        ods exclude all;
+ 186        ods excel file="&path/Median Home Value_s.xlsx" style=pearl;
+ 187        ods excel select report;
+ 188        proc report data=temp.median_home_value_s;
+ 189          columns _all_;
+ 190        run;
+ 
+ NOTE: There were 52 observations read from the data set TEMP.MEDIAN_HOME_VALUE_S.
+ NOTE: PROCEDURE REPORT used (Total process time):
+       real time           0.05 seconds
+       user cpu time       0.06 seconds
+       system cpu time     0.00 seconds
+       memory              10514.56k
+       OS Memory           72996.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1081  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     2401
+       Page Swaps                        0
+       Voluntary Context Switches        35
+       Involuntary Context Switches      0
+       Block Input Operations            288
+       Block Output Operations           8
+       
+ 
+ 191        ods excel close;
+ NOTE: Writing EXCEL file: /home/u63591817/Census Data Analysis/Median Home Value_s.xlsx
+ 192        ods exclude none;
+ 193        /* proc export data=temp.Median_Home_Value_s outfile="&path/Median Home Value_s.xlsx" dbms=xlsx replace; */
+ 194        /* run; */
+ 195        
+ 196        proc delete data=temp.Median_Home_Value_s;
+ 197        run;
+ 
+ NOTE: Deleting TEMP.MEDIAN_HOME_VALUE_S (memtype=DATA).
+ NOTE: PROCEDURE DELETE used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              180.90k
+       OS Memory           57576.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1082  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     15
+       Page Swaps                        0
+       Voluntary Context Switches        24
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 198        
+ 199        
+ 200        /* Total Population_s.xlsx */
+ 201        data temp.TOTAL_POPULATION_S;
+ 202          infile datalines dsd truncover;
+ 203          input GEO_ID:$11. State:$20. TotalPopulation:COMMA15.;
+ 204          format TotalPopulation COMMA15.;
+ 205          label GEO_ID="GEO_ID" State="State" TotalPopulation="TotalPopulation";
+ 206        datalines4;
+ 
+ NOTE: The data set TEMP.TOTAL_POPULATION_S has 52 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              669.62k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1083  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     81
+       Page Swaps                        0
+       Voluntary Context Switches        28
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           272
+       
+ 
+ 259        ;;;;
+ 260        
+ 261        proc export data=temp.Total_Population_s outfile="&path/Total Population_s.xlsx" dbms=xlsx replace;
+ 262        run;
+ 
+ NOTE: The export data set has 52 observations and 3 variables.
+ NOTE: "/home/u63591817/Census Data Analysis/Total Population_s.xlsx" file was successfully created.
+ NOTE: PROCEDURE EXPORT used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.01 seconds
+       system cpu time     0.00 seconds
+       memory              3413.93k
+       OS Memory           60020.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1084  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     612
+       Page Swaps                        0
+       Voluntary Context Switches        34
+       Involuntary Context Switches      0
+       Block Input Operations            304
+       Block Output Operations           16
+       
+ 
+ 263        
+ 264        proc delete data=temp.Total_Population_s;
+ 265        run;
+ 
+ NOTE: Deleting TEMP.TOTAL_POPULATION_S (memtype=DATA).
+ NOTE: PROCEDURE DELETE used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              403.81k
+       OS Memory           57576.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1085  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     15
+       Page Swaps                        0
+       Voluntary Context Switches        25
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 266        
+ 267        
+ 268        /* Delete Backup XLSX Files */
+ 269        %macro xlsx_bak_delete(file=) / des='Delete backup spreadsheets';
+ 270        option mprint notes;
+ 271        data _null_;
+ 272        fname = 'todelete';
+ 273        rc = filename(fname, "&file..xlsx.bak");
+ 274        rc = fdelete(fname);
+ 275        rc = filename(fname);
+ 276        run;
+ 277        %mend xlsx_bak_delete;
+ 278        
+ 279        %xlsx_bak_delete(file=&path/Educational Attainment_s)
+ MPRINT(XLSX_BAK_DELETE):   option mprint notes;
+ MPRINT(XLSX_BAK_DELETE):   data _null_;
+ MPRINT(XLSX_BAK_DELETE):   fname = 'todelete';
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname, "/home/u63591817/Census Data Analysis/Educational Attainment_s.xlsx.bak");
+ MPRINT(XLSX_BAK_DELETE):   rc = fdelete(fname);
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname);
+ MPRINT(XLSX_BAK_DELETE):   run;
+ 
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              482.06k
+       OS Memory           57576.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1086  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     18
+       Page Swaps                        0
+       Voluntary Context Switches        3
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 280        %xlsx_bak_delete(file=&path/Median Home Value_s)
+ MPRINT(XLSX_BAK_DELETE):   option mprint notes;
+ MPRINT(XLSX_BAK_DELETE):   data _null_;
+ MPRINT(XLSX_BAK_DELETE):   fname = 'todelete';
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname, "/home/u63591817/Census Data Analysis/Median Home Value_s.xlsx.bak");
+ MPRINT(XLSX_BAK_DELETE):   rc = fdelete(fname);
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname);
+ MPRINT(XLSX_BAK_DELETE):   run;
+ 
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              482.06k
+       OS Memory           57576.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1087  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     18
+       Page Swaps                        0
+       Voluntary Context Switches        4
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 281        %xlsx_bak_delete(file=&path/Total Population_s)
+ MPRINT(XLSX_BAK_DELETE):   option mprint notes;
+ MPRINT(XLSX_BAK_DELETE):   data _null_;
+ MPRINT(XLSX_BAK_DELETE):   fname = 'todelete';
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname, "/home/u63591817/Census Data Analysis/Total Population_s.xlsx.bak");
+ MPRINT(XLSX_BAK_DELETE):   rc = fdelete(fname);
+ MPRINT(XLSX_BAK_DELETE):   rc = filename(fname);
+ MPRINT(XLSX_BAK_DELETE):   run;
+ 
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              714.43k
+       OS Memory           57576.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1088  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     16
+       Page Swaps                        0
+       Voluntary Context Switches        2
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 282        
+ 283        
+ 284        /* education_stacked_s.sas7bdat */
+ 285        data temp.EDUCATION_STACKED_S;
+ 286          infile datalines dsd truncover;
+ 287          input Educational_Attainment:$43. Division:$18. Count:COMMA15.;
+ 288          format Count COMMA15.;
+ 289          label Educational_Attainment="Educational_Attainment" Division="NAME OF FORMER VARIABLE";
+ 290        datalines4;
+ 
+ NOTE: The data set TEMP.EDUCATION_STACKED_S has 45 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.01 seconds
+       memory              780.43k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1089  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     81
+       Page Swaps                        0
+       Voluntary Context Switches        40
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 336        ;;;;
+ 337        
+ 338        
+ 339        /* geo_lookup.sas7bdat */
+ 340        data temp.GEO_LOOKUP;
+ 341          infile datalines dsd truncover;
+ 342          input RegionNum:BEST12. Region:$16. DivisionNum:BEST12. Division:$27. StateNum_FIPS:$2. State:$20.;
+ 343          format RegionNum BEST12. DivisionNum BEST12.;
+ 344          label RegionNum="Region Number" DivisionNum="Division Number" StateNum_FIPS="State FIPS Codes";
+ 345        datalines4;
+ 
+ NOTE: The data set TEMP.GEO_LOOKUP has 51 observations and 6 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              670.53k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1090  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     82
+       Page Swaps                        0
+       Voluntary Context Switches        40
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           272
+       
+ 
+ 397        ;;;;
+ 398        
+ 399        
+ 400        
+ 401        /* medianage.sas7bdat */
+ 402        data temp.MEDIANAGE;
+ 403          infile datalines dsd truncover;
+ 404          input GEO_ID:$11. State:$20. MedianAge:BEST. MedianAgeMOE:BEST.;
+ 405          format MedianAge BEST. MedianAgeMOE BEST.;
+ 406          label GEO_ID="GEO_ID" State="State" MedianAge="Median Age" MedianAgeMOE="MedianAgeMOE";
+ 407        datalines4;
+ 
+ NOTE: The data set TEMP.MEDIANAGE has 52 observations and 4 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              670.21k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1091  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        40
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 460        ;;;;
+ 461        
+ 462        
+ 463        /* medianhomevalue_s.sas7bdat */
+ 464        data temp.MEDIANHOMEVALUE_S;
+ 465          infile datalines dsd truncover;
+ 466          input GEO_ID:$11. State:$20. MedianHome:NLMNY15. MedianHomeMOE:NLMNY15.;
+ 467          format MedianHome NLMNY15. MedianHomeMOE NLMNY15.;
+ 468          label GEO_ID="GEO_ID" State="State" MedianHome="MedianHome" MedianHomeMOE="MedianHomeMOE";
+ 469        datalines4;
+ 
+ NOTE: The data set TEMP.MEDIANHOMEVALUE_S has 52 observations and 4 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              782.65k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1092  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        41
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 522        ;;;;
+ 523        
+ 524        
+ 525        /* medianincome.sas7bdat */
+ 526        data temp.MEDIANINCOME;
+ 527          infile datalines dsd truncover;
+ 528          input GEO_ID:$11. State:$20. MedianIncome:DOLLAR8. MedianIncomeMOE:DOLLAR7.;
+ 529          format MedianIncome DOLLAR8. MedianIncomeMOE DOLLAR7.;
+ 530          label MedianIncome="Median Household Income" MedianIncomeMOE="Median Household Income (MOE)";
+ 531        datalines4;
+ 
+ NOTE: The data set TEMP.MEDIANINCOME has 52 observations and 4 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              669.21k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1093  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        40
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 584        ;;;;
+ 585        
+ 586        
+ 587        /* population2010.sas7bdat */
+ 588        data temp.POPULATION2010;
+ 589          infile datalines dsd truncover;
+ 590          input GEO_ID:$11. State:$20. TotalPop2010:COMMA15.;
+ 591          format TotalPop2010 COMMA15.;
+ 592          label GEO_ID="GEO_ID" State="State" TotalPop2010="Population2010";
+ 593        datalines4;
+ 
+ NOTE: The data set TEMP.POPULATION2010 has 52 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.01 seconds
+       system cpu time     0.00 seconds
+       memory              780.75k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1094  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        42
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 646        ;;;;
+ 647        
+ 648        
+ 649        /* population2018.sas7bdat */
+ 650        data temp.POPULATION2018;
+ 651          infile datalines dsd truncover;
+ 652          input GEO_ID:$11. State:$20. TotalPop2018:COMMA15.;
+ 653          format TotalPop2018 COMMA15.;
+ 654          label GEO_ID="GEO_ID" State="State" TotalPop2018="Population2018";
+ 655        datalines4;
+ 
+ NOTE: The data set TEMP.POPULATION2018 has 52 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              668.31k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1095  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        43
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 708        ;;;;
+ 709        
+ 710        
+ 711        /* population_s.sas7bdat */
+ 712        data temp.POPULATION_S;
+ 713          infile datalines dsd truncover;
+ 714          input GEO_ID:$11. State:$20. TotalPopulation:COMMA15.;
+ 715          format TotalPopulation COMMA15.;
+ 716          label GEO_ID="GEO_ID" State="State" TotalPopulation="TotalPopulation";
+ 717        datalines4;
+ 
+ NOTE: The data set TEMP.POPULATION_S has 52 observations and 3 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.01 seconds
+       memory              780.75k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1096  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     84
+       Page Swaps                        0
+       Voluntary Context Switches        41
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 770        ;;;;
+ 771        
+ 772        
+ 773        /* stateinfo_combined.sas7bdat */
+ 774        data temp.STATEINFO_COMBINED;
+ 775          infile datalines dsd truncover;
+ 776          input GEO_ID:$11. State:$20. Division:$27. Region:$16. MedianIncome:DOLLAR12. MeanHoursWorked:BEST4.
+ 776      ! TotalPopulation:COMMA12. MedianAge:BEST4. MedianCurrentMarriageDuration:BEST4. MedianMonthlyHousingCosts:DOLLAR10.;
+ 777          format MedianIncome DOLLAR12. MeanHoursWorked BEST4. TotalPopulation COMMA12. MedianAge BEST4.
+ 777      ! MedianCurrentMarriageDuration BEST4. MedianMonthlyHousingCosts DOLLAR10.;
+ 778          label MedianIncome="Median Household Income" MeanHoursWorked="Mean Hours Worked per Week" TotalPopulation="Total
+ 778      ! Population" MedianAge="Median Age" MedianCurrentMarriageDuration="Median Duration of Current Marriage"
+ 778      ! MedianMonthlyHousingCosts="Median Monthly Housing Costs";
+ 779        datalines4;
+ 
+ NOTE: The data set TEMP.STATEINFO_COMBINED has 51 observations and 10 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              786.34k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1097  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     85
+       Page Swaps                        0
+       Voluntary Context Switches        40
+       Involuntary Context Switches      0
+       Block Input Operations            32
+       Block Output Operations           264
+       
+ 
+ 831        ;;;;
+ 832        
+ 833        
+ 834        
+ 835        proc contents data=temp._all_ nods;
+ 836        run;
+ 
+ NOTE: PROCEDURE CONTENTS used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.02 seconds
+       system cpu time     0.00 seconds
+       memory              1524.40k
+       OS Memory           57836.00k
+       Timestamp           04/21/2024 08:05:31 PM
+       Step Count                        1098  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     73
+       Page Swaps                        0
+       Voluntary Context Switches        2
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           8
+       
+ 
+ 837        
+ 838        libname temp clear;
+ NOTE: Libref TEMP has been deassigned.
+ 839        
+ 840        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 850        
