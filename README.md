@@ -1,2 +1,2 @@
-# Econometrics---SAS-Census-Bureau-Data-Analysisa
+# Econometrics-SAS-Census-Bureau-Data-Analysis
 SAS Census Bureau Data Analysis
